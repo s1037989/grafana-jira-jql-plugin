@@ -1,0 +1,12 @@
+const fs = require('node:fs');
+const path = require('node:path');
+const { execFileSync } = require('node:child_process');
+const pluginId = 'jirajql-datasource';
+if (!fs.existsSync('dist/module.js')) throw new Error('Run npm run build first.');
+const release = path.resolve('release');
+fs.mkdirSync(release, { recursive: true });
+const folder = path.join(release, pluginId);
+fs.rmSync(folder, { recursive: true, force: true });
+fs.cpSync('dist', folder, { recursive: true });
+execFileSync('zip', ['-qr', `${pluginId}-1.0.0.zip`, pluginId], { cwd: release, stdio: 'inherit' });
+console.log(path.join(release, `${pluginId}-1.0.0.zip`));

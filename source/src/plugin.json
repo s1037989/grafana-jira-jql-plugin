@@ -1,0 +1,39 @@
+{
+  "$schema": "https://raw.githubusercontent.com/grafana/grafana/main/docs/sources/developers/plugins/plugin.schema.json",
+  "type": "datasource",
+  "name": "Jira JQL",
+  "id": "jirajql-datasource",
+  "metrics": true,
+  "annotations": false,
+  "backend": false,
+  "alerting": false,
+  "info": {
+    "description": "Query Jira Cloud or Data Center using JQL and return issue tables or original JSON pages.",
+    "author": { "name": "Stefan Adams" },
+    "keywords": ["jira", "jql", "json"],
+    "logos": { "small": "img/logo.svg", "large": "img/logo.svg" },
+    "links": [],
+    "screenshots": [],
+    "version": "1.0.0",
+    "updated": "2026-10-05"
+  },
+  "dependencies": { "grafanaDependency": ">=12.4.0", "plugins": [] },
+  "routes": [
+    {
+      "path": "cloud-search", "method": "POST", "url": "{{ .JsonData.jiraUrl }}/rest/api/3/search/jql",
+      "headers": [{ "name": "Authorization", "content": "{{ .SecureJsonData.authorization }}" }]
+    },
+    {
+      "path": "dc-search", "method": "POST", "url": "{{ .JsonData.jiraUrl }}/rest/api/2/search",
+      "headers": [{ "name": "Authorization", "content": "{{ .SecureJsonData.authorization }}" }]
+    },
+    {
+      "path": "cloud-myself", "method": "GET", "url": "{{ .JsonData.jiraUrl }}/rest/api/3/myself",
+      "headers": [{ "name": "Authorization", "content": "{{ .SecureJsonData.authorization }}" }]
+    },
+    {
+      "path": "dc-myself", "method": "GET", "url": "{{ .JsonData.jiraUrl }}/rest/api/2/myself",
+      "headers": [{ "name": "Authorization", "content": "{{ .SecureJsonData.authorization }}" }]
+    }
+  ]
+}

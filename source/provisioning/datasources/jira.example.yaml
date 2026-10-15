@@ -1,0 +1,14 @@
+# Copy into Grafana's provisioning/datasources folder after setting JIRA_AUTHORIZATION.
+apiVersion: 1
+datasources:
+  - name: Jira
+    uid: jira-jql
+    type: jirajql-datasource
+    access: proxy
+    url: https://jira.example.com
+    editable: true
+    jsonData:
+      jiraUrl: https://jira.example.com
+      edition: datacenter
+    secureJsonData:
+      authorization: ${JIRA_AUTHORIZATION}

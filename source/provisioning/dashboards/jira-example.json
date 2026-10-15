@@ -1,0 +1,110 @@
+{
+  "id": null,
+  "uid": "jira-jql-example",
+  "title": "Jira JQL example",
+  "schemaVersion": 41,
+  "version": 1,
+  "tags": [
+    "jira",
+    "jql"
+  ],
+  "timezone": "browser",
+  "refresh": "5m",
+  "time": {
+    "from": "now-30d",
+    "to": "now"
+  },
+  "__inputs": [
+    {
+      "name": "DS_JIRA",
+      "label": "Jira JQL",
+      "description": "Select your Jira JQL data source",
+      "type": "datasource",
+      "pluginId": "jirajql-datasource",
+      "pluginName": "Jira JQL"
+    }
+  ],
+  "templating": {
+    "list": [
+      {
+        "name": "project",
+        "label": "Jira project",
+        "type": "textbox",
+        "query": "DEMO",
+        "current": {
+          "text": "DEMO",
+          "value": "DEMO"
+        },
+        "hide": 0
+      }
+    ]
+  },
+  "panels": [
+    {
+      "id": 1,
+      "title": "Issues",
+      "type": "table",
+      "gridPos": {
+        "h": 14,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "datasource": {
+        "type": "jirajql-datasource",
+        "uid": "${DS_JIRA}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "jql": "project = $project ORDER BY updated DESC",
+          "fields": "summary,status,assignee,created,updated",
+          "format": "table",
+          "pageSize": 100,
+          "maxIssues": 1000,
+          "maxPages": 100
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {
+        "showHeader": true
+      }
+    },
+    {
+      "id": 2,
+      "title": "Original Jira JSON response pages",
+      "type": "table",
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 14
+      },
+      "datasource": {
+        "type": "jirajql-datasource",
+        "uid": "${DS_JIRA}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "jql": "project = $project ORDER BY updated DESC",
+          "fields": "summary,status",
+          "format": "json",
+          "pageSize": 100,
+          "maxIssues": 100,
+          "maxPages": 5
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {
+        "showHeader": true
+      }
+    }
+  ]
+}

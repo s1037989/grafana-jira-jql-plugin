@@ -1,0 +1,7 @@
+Jira JQL Grafana data source plugin
+
+Install: extract jirajql-datasource into Grafana plugin directory.
+See source/README.md for unsigned-plugin settings, Jira credentials, and usage.
+See source/VALIDATION.md for validation scope.
+Requires Grafana 12.4 or newer.
+Full source, tests, lockfile, provisioning example, and sample dashboard are in source/.

@@ -1,0 +1,12 @@
+services:
+  grafana:
+    image: grafana/grafana:12.4.0
+    ports:
+      - "3000:3000"
+    environment:
+      GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: jirajql-datasource
+    volumes:
+      - ./dist:/var/lib/grafana/plugins/jirajql-datasource:ro
+      - grafana-data:/var/lib/grafana
+volumes:
+  grafana-data:
